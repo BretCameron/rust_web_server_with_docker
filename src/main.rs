@@ -15,8 +15,6 @@ async fn greet() -> impl Responder {
 async fn connect_db() -> mongodb::error::Result<()> {
     let uri = env::var("MONGODB_URI").expect("MONGODB_URI must be set");
 
-    println!("{}", uri);
-
     let mut client_options = ClientOptions::parse(uri).await?;
 
     let server_api = ServerApi::builder().version(ServerApiVersion::V1).build();
