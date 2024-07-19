@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  web_server:
+    build: .
+    container_name: web_server_container
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongodb
+    environment:
+      MONGODB_URI: "mongodb://mongodb:27019/?directConnection=true"
+
+  mongodb:
+    image: mongo:7.0.8-jammy
+    hostname: mongodb
+    container_name: mongodb_container
+    ports:
+      - "27019:27017" # Expose MongoDB on port 27019 externally and 27017 internally
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
